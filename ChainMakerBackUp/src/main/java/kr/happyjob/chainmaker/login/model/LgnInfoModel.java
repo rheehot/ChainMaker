@@ -1,5 +1,7 @@
 package kr.happyjob.chainmaker.login.model;
 
+
+
 public class LgnInfoModel {
 
 	// 게시판 글 번호

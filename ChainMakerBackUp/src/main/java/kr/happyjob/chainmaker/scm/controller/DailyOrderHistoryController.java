@@ -10,7 +10,7 @@ public class DailyOrderHistoryController {
 	@RequestMapping("scm/dailyOrderHistory")
 	public String getDailyOrderHistroy() {
 		String viewLocation = "scm/dailyOrderHistroy";
-		
+		//ㅁㅁ
 		return viewLocation;
 	}
 }
