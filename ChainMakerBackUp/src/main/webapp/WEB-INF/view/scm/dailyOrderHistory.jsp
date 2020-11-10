@@ -25,7 +25,7 @@
 	$(function() {
 	
 		// 그룹코드 조회
-		fListComnGrpCod();
+		fListDailyOrderHistroy();
 		
 		// 버튼 이벤트 등록
 		fRegisterButtonClickEvent();
@@ -61,8 +61,8 @@
 	}
 	
 	
-	/** 그룹코드 폼 초기화 */
-	function fInitFormGrpCod(object) {
+	/** 일별 수주 내역 폼 초기화 */
+	function fInitFormDiailyOrderHistory(object) {
 		$("#grp_cod").focus();
 		if( object == "" || object == null || object == undefined) {
 			
@@ -200,7 +200,7 @@
 			$("#action").val("I");
 			
 			// 그룹코드 폼 초기화
-			fInitFormGrpCod();
+			fInitFormDiailyOrderHistory();
 			
 			// 모달 팝업
 			gfModalPop("#layer1");
@@ -217,8 +217,8 @@
 	}
 	
 	
-	/** 그룹코드 조회 */
-	function fListComnGrpCod(currentPage) {
+	/** 일별 수주 내역 조회 */
+	function fListDailyOrderHistroy(currentPage) {
 		
 		currentPage = currentPage || 1;
 		
@@ -230,41 +230,36 @@
 		}
 		
 		var resultCallback = function(data) {
-			flistGrpCodResult(data, currentPage);
+			flistDailyOrderHistroyResult(data, currentPage);
 		};
 		//Ajax실행 방식
 		//callAjax("Url",type,return,async or sync방식,넘겨준거,값,Callback함수 이름)
 		//html로 받을거라 text
-		callAjax("/system/listComnGrpCod.do", "post", "text", true, param, resultCallback);
+		callAjax("/scm/dailyOrderHistory.do", "post", "text", true, param, resultCallback);
 	}
 	
 	
-	/** 그룹코드 조회 콜백 함수 */
-	function flistGrpCodResult(data, currentPage) {
+	/** 일별 수주 내역 조회 콜백 함수 */
+	function flistDailyOrderHistroyResult(data, currentPage) {
 		
 		//alert(data);
 		console.log(data);
 		
 		// 기존 목록 삭제
-		$('#listComnGrpCod').empty();
-		//$('#listComnGrpCod').find("tr").remove() 
+		$('#listDailyOrderHistroy').empty();
 		
 		var $data = $( $(data).html() );
 
-		// 신규 목록 생성, 길 수정
-		//var $listComnGrpCod = $data.find("#listComnGrpCod");		
-		//$("#listComnGrpCod").append($listComnGrpCod.children());
-		
-		$("#listComnGrpCod").append($data);
+		$("#listDailyOrderHistroy").append($data);
 		
 		// 총 개수 추출
 		var $totalCntComnGrpCod = $data.find("#totalCntComnGrpCod");
 		var totalCntComnGrpCod = $totalCntComnGrpCod.text(); 
 		
 		// 페이지 네비게이션 생성
-		var paginationHtml = getPaginationHtml(currentPage, totalCntComnGrpCod, pageSizeComnGrpCod, pageBlockSizeComnGrpCod, 'fListComnGrpCod');
+		var paginationHtml = getPaginationHtml(currentPage, totalCntComnGrpCod, pageSizeComnGrpCod, pageBlockSizeComnGrpCod, 'fListDailyOrderHistroy');
 		console.log("paginationHtml : " + paginationHtml);
-		//alert(paginationHtml);
+
 		$("#comnGrpCodPagination").empty().append( paginationHtml );
 		
 		// 현재 페이지 설정
@@ -278,7 +273,7 @@
 		var param = { grp_cod : grp_cod };
 		
 		var resultCallback = function(data) {
-			fSelectGrpCodResult(data);
+			fSelectDailyOrderHistroyResult(data);
 		};
 		
 		callAjax("/system/selectComnGrpCod.do", "post", "json", true, param, resultCallback);
@@ -286,15 +281,15 @@
 	
 	
 	/** 그룹코드 단건 조회 콜백 함수*/
-	function fSelectGrpCodResult(data) {
+	function fSelectDailyOrderHistroyResult(data) {
 
 		if (data.result == "SUCCESS") {
 
 			// 모달 팝업
 			gfModalPop("#layer1");
 			
-			// 그룹코드 폼 데이터 설정
-			fInitFormGrpCod(data.comnGrpCodModel);
+			// 일별 수주내역 폼 데이터 설정
+			fInitFormDiailyOrderHistory(data.comnGrpCodModel);
 			
 		} else {
 			alert(data.resultMsg);
@@ -311,7 +306,7 @@
 		}
 		
 		var resultCallback = function(data) {
-			fSaveGrpCodResult(data);
+			fSaveDailyOrderHistoryResult(data);
 		};
 		
 		callAjax("/system/saveComnGrpCod.do", "post", "json", true, $("#myForm").serialize(), resultCallback);
@@ -319,7 +314,7 @@
 	
 	
 	/** 그룹코드 저장 콜백 함수 */
-	function fSaveGrpCodResult(data) {
+	function fSaveDailyOrderHistoryResult(data) {
 		
 		// 목록 조회 페이지 번호
 		var currentPage = "1";
@@ -336,7 +331,7 @@
 			gfCloseModal();
 			
 			// 목록 조회
-			fListComnGrpCod(currentPage);
+			fListDailyOrderHistroy(currentPage);
 			
 		} else {
 			// 오류 응답 메시지 출력
@@ -344,15 +339,15 @@
 		}
 		
 		// 입력폼 초기화
-		fInitFormGrpCod();
+		fInitFormDiailyOrderHistory();
 	}
 
 	
 	/** 그룹코드 삭제 */
-	function fDeleteGrpCod() {
+	function fDeleteDailyOrderHistroy() {
 		
 		var resultCallback = function(data) {
-			fDeleteGrpCodResult(data);
+			fDeleteDailyOrderHistroyResult(data);
 		};
 		
 		callAjax("/system/deleteComnGrpCod.do", "post", "json", true, $("#myForm").serialize(), resultCallback);
@@ -360,7 +355,7 @@
 	
 	
 	/** 그룹코드 삭제 콜백 함수 */
-	function fDeleteGrpCodResult(data) {
+	function fDeleteDailyOrderHistroyResult(data) {
 		
 		var currentPage = $("#currentPageComnGrpCod").val();
 		
@@ -372,8 +367,8 @@
 			// 모달 닫기
 			gfCloseModal();
 			
-			// 그룹코드 목록 조회
-			fListComnGrpCod(currentPage);
+			// 일별수주 목록 조회
+			fListDailyOrderHistroy(currentPage);
 			
 		} else {
 			alert(data.resultMsg);
@@ -648,19 +643,19 @@
 										<th scope="col">비고</th>
 									</tr>
 								</thead>
-								<tbody id="listComnGrpCod"></tbody>
+								<tbody id="listDailyOrderHistroy"></tbody>
 							</table>
 						</div>
 	
 						<div class="paging_area"  id="comnGrpCodPagination"> </div>
 	
-						<p class="conTitle mt50">
+<!-- 						<p class="conTitle mt50">
 							<span>상세 코드</span> <span class="fr"> <a
 								class="btnType blue"  href="javascript:fPopModalComnDtlCod();" name="modal"><span>신규등록</span></a>
 							</span>
-						</p>
+						</p> -->
 	
-						<div class="divComDtlCodList">
+<%-- 						<div class="divComDtlCodList">
 							<table class="col">
 								<caption>caption</caption>
 								<colgroup>
@@ -700,7 +695,7 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>
+						</div> --%>
 						
 						<div class="paging_area"  id="comnDtlCodPagination"> </div>
 
