@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.kosmo.jobkorea.system.dao.UsrMgrDao">
+<mapper namespace="kr.happyjob.chainmaker.system.dao.UsrMgrDao">
 	
 
 	  
@@ -13,7 +13,7 @@
 	
 	
 	<!-- 관리자 단건 조회 -->
-	 <select id="selectUsr" resultType="kr.kosmo.jobkorea.system.model.UsrMgrModel">
+	 <select id="selectUsr" resultType="kr.happyjob.chainmaker.system.model.UsrMgrModel">
 		/* kr.kosmo.jobkorea.system.dao.UsrMgrDao.selectUsr */
 		 SELECT adi.ADMIDX
 	      ,adi.ADMID
@@ -268,7 +268,7 @@
 	</delete>
 	
 	<!-- 메뉴권한 목록 조회 -->
-	<select id="listUsrAtrt" resultType="kr.kosmo.jobkorea.system.model.UsrArtrMgrModel">
+	<select id="listUsrAtrt" resultType="kr.happyjob.chainmaker.system.model.UsrArtrMgrModel">
 		/* kr.kosmo.jobkorea.system.dao.UsrMgrDao.listUsrAtrt */
 		SELECT	usr_sst_id
 			, mnu_id
@@ -320,7 +320,7 @@
 	
 	
     <!-- 관리자 목록 조회 -->
-	<select id="adminlistUsr" resultType="kr.kosmo.jobkorea.system.model.UsrMgrModel">
+	<select id="adminlistUsr" resultType="kr.happyjob.chainmaker.system.model.UsrMgrModel">
 		/* kr.kosmo.jobkorea.system.dao.UsrMgrDao.adminlistUsr */
 		SELECT ADMID as lgn_id
                   ,TRIM(ADMPW) as pwd
@@ -355,7 +355,7 @@
 	
 	
     <!-- 프리랜서 목록 조회 -->
-	<select id="freelistUsr" resultType="kr.kosmo.jobkorea.system.model.UsrMgrModel">
+	<select id="freelistUsr" resultType="kr.happyjob.chainmaker.system.model.UsrMgrModel">
 		/* kr.kosmo.jobkorea.system.dao.UsrMgrDao.freelistUsr */
 		SELECT NMPEMAIL as lgn_id
                   ,TRIM(MAX(NMPPW)) as pwd

@@ -33,7 +33,7 @@
 	
 	function init(){
 		
-		/* whvm = new Vue({
+		whvm = new Vue({
 			el:"#divWHInventoryList",
 			components:{	
 				"bootstrap-table":BootstrapTable
@@ -49,13 +49,21 @@
 					//클릭된 row (#divWHInventoryList > <tr>)
 					var tr=$(row);
 					var td=tr.children();
+					
+					td.each(function(i){
+						tdArr.push(td.eq(i).text());
+					});
+					
+					this.no = tdArr[0];
+					
+					whInventoryList();
 				}
 			}
 		});
 		
 		whprovm = new Vue({
 			
-		}); */
+		});
 	}
 
 	//창고별 재고 조회
@@ -76,15 +84,27 @@
 	//창고별 재고 조회 콜백
 	function whInventoryListResult(data, currentPage){
 		console.log(data);
+		
+		whvm.items=[];
+		whvm.items=data.listWHInventory;
+		
+		//총 개수 추출
+		var total=data.total;
+		
+		//페이지 네비게이션 생성
+		var paginationHtml = getPaginationHtml(currentPage, total, pageSizeWHInventory, pageBlockSizeWHInventory, "whInventoryList");
+		
+		$("#WHInventoryPagination").empty().append( paginationHtml );
+		
+		$("#currentPageWHInventory").val(currentPage);
 	}
-	
-
 </script>
 
 </head>
 <body>	
 	<form id="myForm" action=""  method="">
-		<input type="hidden">
+		<input type="hidden" name="currentPageWHInventory" id="currentPageWHInventory" value="">
+		<input type="hidden" name="whProduct" id="whProduct" value="">
 		
 		<div id="wrap_area">
 		
@@ -152,22 +172,22 @@
 									
 									<!-- 상단테이블 DB데이터 출력 영역 -->
 									<tbody id="listWHInventory">
-										<tr>
+										<!-- <tr>
 											<td>1</td>
 											<td>1</td>
 											<td>에이스 트윈</td>
 											<td>UPS</td>
 											<td>10</td>
 											<td>서울시 구로구</td>
-										</tr>
+										</tr> -->
 										<!-- <template v-for="(row, index) in items" v-if="items.length">
 											<tr onclick="vm.rowClicked(this)">
-											    <td>{{ row.no }}</td>
-												<td>{{ row.title }}</td>
-												<td>{{ row.startdate }} - {{ row.enddate }}</td>
-												<td>{{ row.teacher }}</td>
-												<td>{{ row.teacher }}</td>
-												<td>{{ row.teacher }}</td>						
+											    <td>{{ row.ware_no }}</td>
+												<td>{{ row.pro_no }}</td>
+												<td>{{ row.ware_name }}</td>
+												<td>{{ row.pro_name }}</td>
+												<td>{{ row.pro_ware_qty }}</td>
+												<td>{{ row.ware_address }}</td>						
 											</tr>
 										</template> -->
 									</tbody>

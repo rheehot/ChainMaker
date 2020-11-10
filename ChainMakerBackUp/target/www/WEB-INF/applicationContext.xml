@@ -36,12 +36,12 @@
 	<mvc:resources location="/WEB-INF/resource/html/" mapping="/html/**" />
 
 	<!-- Component Scan을 하기 위한 ROOT Package 설정 -->
-	<!-- context:component-scan base-package="kr.kosmo.jobkorea" /  -->
-	<context:component-scan base-package="kr.kosmo" />
+	<!-- context:component-scan base-package="kr.happyjob.chainmaker" /  -->
+	<context:component-scan base-package="kr.happyjob" />
 	
 	<!-- dao 스캔 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="kr.kosmo.jobkorea.**.dao" />
+		<property name="basePackage" value="kr.happyjob.chainmaker.**.dao" />
 	</bean>
 	
 	<!-- MultipartResolver 설정 -->
@@ -52,7 +52,7 @@
 	</bean>
 
 	<!-- 프로퍼티 파일 등록 -->
-	<context:property-placeholder location="/WEB-INF/classes/kosmo.properties"/>
+	<context:property-placeholder location="/WEB-INF/classes/happyjob.properties"/>
 	<!-- ## MySQL setup ## -->
 	
 <!--  	
@@ -83,7 +83,7 @@
 	<bean id="mysqlSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="mysqlDataSource" />
 		<property name="configLocation" value="/WEB-INF/mybatis-mysql-config.xml" />
-		<property name="typeAliasesPackage" value="kr.kosmo.jobkorea" />
+		<property name="typeAliasesPackage" value="kr.happyjob.chainmaker" />
 		<!-- property name="mapperLocations" value="classpath*:kr/kosmo/jobkorea/**/dao/mapper/*Mapper.xml" /-->
 		<property name="mapperLocations" value="classpath*:sql/*/*Mapper.xml" />
 	</bean>
@@ -107,7 +107,7 @@
 
 	<aop:config>
 		<aop:pointcut id="txPointcut"
-			expression="execution(* kr.kosmo.jobkorea.*.service.*ServiceImpl.*(..))" />
+			expression="execution(* kr.happyjob.chainmaker.*.service.*ServiceImpl.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
 	
@@ -147,14 +147,14 @@
 			<mvc:exclude-mapping path="/js/**" />
 			<mvc:exclude-mapping path="/fonts/**" />
 			<mvc:exclude-mapping path="/html/**" />
-			<bean class="kr.kosmo.jobkorea.common.interceptor.AuthCheckInterceptor" />
+			<bean class="kr.happyjob.chainmaker.common.interceptor.AuthCheckInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
 
 	 		 
 	<!--## 공통 Exception setup ## -->
-	<bean class="kr.kosmo.jobkorea.common.exception.CommonExceptionHandler" />
+	<bean class="kr.happyjob.chainmaker.common.exception.CommonExceptionHandler" />
 
 	<!-- JSP를 이용해서 컨트롤러의 실행 결과를 보여주기 위한 설정 -->
 	<!-- <mvc:view-resolvers> <mvc:jsp prefix="/WEB-INF/view/" /> </mvc:view-resolvers> -->

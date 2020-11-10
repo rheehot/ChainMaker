@@ -25,10 +25,10 @@
      </select>
      
      
-     <!-- 사용자 메뉴 권한 -->
+<!-- 사용자 메뉴 권한 -->
    <select id="listUsrMnuAtrt" resultType="kr.happyjob.chainmaker.login.model.UsrMnuAtrtModel">
          /*kr.kosmo.jobkorea.login.dao.LoginDao.listUsrMnuAtrt*/
-            SELECT  ta.mnu_id 
+            SELECT  ta.mnu_id
                   ,   ta.hir_mnu_id
                   ,   ta.mnu_nm
                   ,   ta.mnu_url

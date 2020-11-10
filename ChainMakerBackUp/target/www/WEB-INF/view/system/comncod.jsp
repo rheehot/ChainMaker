@@ -234,7 +234,6 @@
 		};
 		//Ajax실행 방식
 		//callAjax("Url",type,return,async or sync방식,넘겨준거,값,Callback함수 이름)
-		//html로 받을거라 text
 		callAjax("/system/listComnGrpCod.do", "post", "text", true, param, resultCallback);
 	}
 	
@@ -247,19 +246,12 @@
 		
 		// 기존 목록 삭제
 		$('#listComnGrpCod').empty();
-		//$('#listComnGrpCod').find("tr").remove() 
 		
-		var $data = $( $(data).html() );
-
-		// 신규 목록 생성, 길 수정
-		//var $listComnGrpCod = $data.find("#listComnGrpCod");		
-		//$("#listComnGrpCod").append($listComnGrpCod.children());
-		
-		$("#listComnGrpCod").append($data);
+		// 신규 목록 생성
+		$("#listComnGrpCod").append(data);
 		
 		// 총 개수 추출
-		var $totalCntComnGrpCod = $data.find("#totalCntComnGrpCod");
-		var totalCntComnGrpCod = $totalCntComnGrpCod.text(); 
+		var totalCntComnGrpCod = $("#totalCntComnGrpCod").val();
 		
 		// 페이지 네비게이션 생성
 		var paginationHtml = getPaginationHtml(currentPage, totalCntComnGrpCod, pageSizeComnGrpCod, pageBlockSizeComnGrpCod, 'fListComnGrpCod');
