@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,8 +35,10 @@ public class DailyOrderHistoryController {
 	 * 일별 수주 내역 리스트 조회 
 	 */
 	@GetMapping
-	@RequestMapping("/list/{}")
-	public String getListDailyOrderHistoryOrDetail (Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
+	@RequestMapping("/list/{listInfo}")
+	public String getListDailyOrderHistoryOrDetail (@PathVariable(value = "listInfo") String listInfo
+			
+			, Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception {
 
 		
@@ -47,6 +50,19 @@ public class DailyOrderHistoryController {
 		paramMap.put("pageSize", pageSize);
 		
 		
+		
+		
+		// pathValue listInfo 타입 별로, 일별 리스트 조회 내역 or 해당 주문의 상세 내역 리스트 메소드 호출 
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		if(listInfo.equals("dailyOrder")) {
+			
+			resultMap = getListDailyOrder();
+			
+		} else if(listInfo.equals("detailOrder")) {
+		
+			resultMap = getListDetailOrder();
+		}
 		
 		
 		
@@ -65,14 +81,27 @@ public class DailyOrderHistoryController {
 		return "/system/comnGrpCodList";
 	}
 	
-	public Map<String, Object> getListDailyOrderHistory() {
+	// 주문 내역 리스트 조회 method
+	public Map<String, Object> getListDailyOrder() {
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		resultMap.put("viewLocation", value)
+		resultMap.put("viewLocation", "dailyOrderHistroy");
 		
-		return
+		return resultMap;
 	}
+	
+	// 해당 주문 상세 내역 리스트 조회 method
+	public Map<String, Object> getListDetailOrder() {
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put("viewLocation", "detailOrderHistroy");
+		
+		return resultMap;
+	}
+	
+	
 	
 	
 	/**
