@@ -3,7 +3,7 @@ package kr.happyjob.chainmaker.scm.model;
 import java.util.Date;
 
 public class WHInventoryFormModel {
-	private int pro_no;
+	private String pro_no;
 	private String pro_name;
 	private int ware_no;
 	private String ware_name;
@@ -23,10 +23,10 @@ public class WHInventoryFormModel {
 	private String user_email;
 	
 	
-	public int getPro_no() {
+	public String getPro_no() {
 		return pro_no;
 	}
-	public void setPro_no(int pro_no) {
+	public void setPro_no(String pro_no) {
 		this.pro_no = pro_no;
 	}
 	public String getPro_name() {

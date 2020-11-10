@@ -10,17 +10,13 @@
 <jsp:include page="/WEB-INF/view/common/common_include.jsp"></jsp:include>
 
 <script>
-/*	//과정 페이징 설정
-	var pageSizeCourse = 5;
-	var pageBlockSizeCourse = 5;
+	//상단테이블 페이징 설정
+	var pageSizeWHInventory = 5;
+	var pageBlockSizeWHInventory = 5;
 	
-	// 학생 페이징 설정
-	var pageSizeStudent = 5;
-	var pageBlockSizeStudent = 10;
-	
-	// 미수강 학생 페이징 설정
-	var pageSizeunStudent = 5;
-	var pageBlockSizeunStudent = 10;*/
+	//하단테이블 페이징 설정
+	var pageSizeWHInventoryProd = 5;
+	var pageBlockSizeWHInventoryProd = 10;
 	
 	//Vue.js 사용 변수 설정
 	var whvm;
@@ -32,19 +28,56 @@
 		init();
 		
 		//창고별 제품 목록 조회		
-		whInventoryListAll();
+		whInventoryList();
 	});
 	
 	function init(){
-		whvm = new Vue({
-			
+		
+		/* whvm = new Vue({
+			el:"#divWHInventoryList",
+			components:{	
+				"bootstrap-table":BootstrapTable
+			},
+			data:{
+				items:[],
+				no:""
+			},
+			methods:{
+				rowClick:function(row){
+					var tdArr = new Array();
+					
+					//클릭된 row (#divWHInventoryList > <tr>)
+					var tr=$(row);
+					var td=tr.children();
+				}
+			}
 		});
 		
 		whprovm = new Vue({
 			
-		});
+		}); */
 	}
 
+	//창고별 재고 조회
+	function whInventoryList(currentPage){
+		currentPage=currentPage || 1;
+		
+		var param={
+				currentPage : currentPage,
+				pageSize : pageSizeWHInventory
+		}
+		
+		var resultCallback = function(data){
+			whInventoryListResult(data, currentPage);
+		}
+		
+		callAjax("/scm/whInventoryList.do", "post", "json", true, param, resultCallback);
+	}
+	//창고별 재고 조회 콜백
+	function whInventoryListResult(data, currentPage){
+		console.log(data);
+	}
+	
 
 </script>
 

@@ -81,26 +81,6 @@ public class DailyOrderHistoryController {
 		return "/system/comnGrpCodList";
 	}
 	
-	// 주문 내역 리스트 조회 method
-	public Map<String, Object> getListDailyOrder() {
-		
-		Map<String, Object> resultMap = new HashMap<>();
-		
-		resultMap.put("viewLocation", "dailyOrderHistroy");
-		
-		return resultMap;
-	}
-	
-	// 해당 주문 상세 내역 리스트 조회 method
-	public Map<String, Object> getListDetailOrder() {
-		
-		Map<String, Object> resultMap = new HashMap<>();
-		
-		resultMap.put("viewLocation", "detailOrderHistroy");
-		
-		return resultMap;
-	}
-	
 	
 	
 	
@@ -135,6 +115,35 @@ public class DailyOrderHistoryController {
 		
 		return "/system/comnDtlCodList";
 	}	
+	
+	
+	
+	
+	
+	
+	// 주문 내역 리스트 조회 method
+	public Map<String, Object> getListDailyOrder() {
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put("viewLocation", "/scm/dailyOrderHistroy");
+		
+		return resultMap;
+	}
+	
+	// 해당 주문 상세 내역 리스트 조회 method
+	public Map<String, Object> getListDetailOrder() {
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put("viewLocation", "detailOrderHistroy");
+		
+		return resultMap;
+	}
+	
+	
+	
+
 	
 	
 	
